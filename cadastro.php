@@ -16,20 +16,34 @@ if ($conn->connect_error) {
 // Recebendo os dados
 $data = json_decode(file_get_contents("php://input"), true);
 $user = $data["username"];
-$pass = password_hash($data["password"], PASSWORD_DEFAULT); // Senha criptografada
+$pass = $data["password"];
 
 // Validação básica
 if (empty($user) || empty($pass)) {
     die(json_encode(["success" => false, "message" => "Preencha todos os campos!"]));
 }
 
+// Verifica se o usuário já existe
+$sql = "SELECT id FROM clientes WHERE usuario = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $user);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    die(json_encode(["success" => false, "message" => "Usuário já cadastrado."]));
+}
+
+// Criptografar a senha antes de salvar
+$hashed_password = password_hash($pass, PASSWORD_DEFAULT);
+
 // Insere no banco de dados
 $sql = "INSERT INTO clientes (usuario, senha) VALUES (?, ?)";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("ss", $user, $pass);
+$stmt->bind_param("ss", $user, $hashed_password);
 
 if ($stmt->execute()) {
-    echo json_encode(["success" => true]);
+    echo json_encode(["success" => true, "message" => "Usuário cadastrado com sucesso!"]);
 } else {
     echo json_encode(["success" => false, "message" => "Erro ao cadastrar usuário."]);
 }

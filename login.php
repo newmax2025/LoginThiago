@@ -2,7 +2,7 @@
 session_start();
 header('Content-Type: application/json');
 
-// Configurações do banco de dados
+// Configuração do banco de dados
 $host = "mysql.hostinger.com";
 $dbname = "u377990636_DataBase";
 $username = "u377990636_Admin";
@@ -11,38 +11,38 @@ $password = "+c4Nrz@H5";
 $conn = new mysqli($host, $username, $password, $dbname);
 
 if ($conn->connect_error) {
-    die(json_encode(["success" => false, "message" => "Erro de conexão com o banco de dados"]));
+    die(json_encode(["success" => false, "message" => "Erro ao conectar ao banco de dados."]));
 }
 
-// Obtendo os dados do POST
+// Recebendo os dados do POST
 $data = json_decode(file_get_contents("php://input"), true);
 $user = $data["username"];
 $pass = $data["password"];
 
-// Verifica no banco de dados
-$sql = "SELECT * FROM clientes WHERE usuario = ? AND senha = ?";
+// Validação básica
+if (empty($user) || empty($pass)) {
+    die(json_encode(["success" => false, "message" => "Preencha todos os campos!"]));
+}
+
+// Busca o usuário no banco de dados
+$sql = "SELECT senha FROM clientes WHERE usuario = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("ss", $user, $pass);
+$stmt->bind_param("s", $user);
 $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
-    $_SESSION["usuario"] = $user;
-    echo json_encode(["success" => true, "redirect" => "AM.html"]);
-} else {
-    // Se não encontrou na tabela clientes, verifica na tabela admin
-    $sql = "SELECT * FROM admin WHERE usuario = ? AND senha = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ss", $user, $pass);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        $_SESSION["admin"] = $user;
-        echo json_encode(["success" => true, "redirect" => "admin.html"]);
+    $row = $result->fetch_assoc();
+    
+    // Verifica a senha com password_verify
+    if (password_verify($pass, $row["senha"])) {
+        $_SESSION["usuario"] = $user;
+        echo json_encode(["success" => true, "redirect" => "AM.html"]);
     } else {
-        echo json_encode(["success" => false, "message" => "Usuário ou senha inválidos, tente novamente"]);
+        echo json_encode(["success" => false, "message" => "Usuário ou senha inválidos"]);
     }
+} else {
+    echo json_encode(["success" => false, "message" => "Usuário ou senha inválidos"]);
 }
 
 $stmt->close();
