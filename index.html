@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login New Max Consultas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div class="login-container">
+        <img src="img/New Max Buscas.png" alt="Logo do Cliente" class="logo">
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Usuário" required>
+            <input type="password" id="password" placeholder="Senha" required>
+            
+            <!-- CAPTCHA -->
+            <div class="captcha-box" onclick="validarCaptcha()">
+                <img src="img/Clodflare2.png" alt="Logo Cloudflare" class="captcha-image">
+                <span>Clique para verificar que você não é um robô</span>
+            </div>
+            
+            <p class="loading" id="loading">Verificando...</p>
+            <p class="success" id="success">✅ Você passou no CAPTCHA!</p>
+            
+            <button type="submit" id="loginButton" disabled>Entrar</button>
+        </form>
+        <p id="error-message" class="error-message"></p>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
