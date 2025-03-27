@@ -1,24 +1,6 @@
 const adminUsers = {
-    "visitante09661@gmail.com": "972207",
-    "visitante095772@gmail.com": "083962",
-    "visitante028483@gmail.com": "976294",
-    "visitante063774@gmail.com": "967304",
-    "visitante938005@gmail.com": "053952",
-    "despachantefreedomlcf@gmail.com": "123456",
-    "Joaobatistarefrigeracao@gmail.com": "123456",
-    "teste": "12345",
-    "zapveicular@gmail.com": "123456",
-    "visitante285": "125481",
-    "visitante415": "102030",
-    "visitante705": "102030",
-    "visitante855": "102030",
-    "visitante901": "102030",
-    "visitante931": "102030",
-    "visitante974": "102030",
-    "visitante187": "102030",
-    "visitante197": "102030",
-    "visitante481": "102030",
-    "visitante301": "102030"
+    "visitante587": "102030",
+    "teste": "12345"
 };
 
 // Função para verificar se o login é válido
@@ -57,13 +39,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const password = document.getElementById("password").value;
         const errorMessage = document.getElementById("error-message");
 
-        // Obter resposta do CAPTCHA
-        const captchaResponse = document.getElementById("captcha-response").value;
-        if (!captchaResponse) {
-            alert("Por favor, complete o CAPTCHA.");
-            return;
-        }
-
         // Verifica se o usuário é um dos administradores permitidos
         if (isValidAdmin(username, password)) {
             window.location.href = "AM.html"; // Redireciona para o painel de admin
@@ -81,12 +56,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Função chamada pelo CAPTCHA quando resolvido
-    window.onCaptchaSuccess = function (token) {
-        document.getElementById("captcha-response").value = token;
-    };
-
     // Expõe a função de adicionar e remover usuários globalmente
     window.addUser = addUser;
     window.removeUser = removeUser;
 });
+
+
