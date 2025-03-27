@@ -1,6 +1,5 @@
 const adminUsers = {
-    "visitante587": "102030",
-    "teste": "12345"
+    "visitante587": "102030"
 };
 
 // Função para verificar se o login é válido
