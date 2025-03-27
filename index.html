@@ -9,27 +9,13 @@
 <body>
     <div class="login-container">
         <img src="img/New Max Buscas.png" alt="Logo do Cliente" class="logo">
-        <h2>Login</h2>
-
         <form id="loginForm">
             <input type="text" id="username" placeholder="Usuário" required>
             <input type="password" id="password" placeholder="Senha" required>
-
-            <!-- CAPTCHA Cloudflare Turnstile -->
-            <div class="cf-turnstile" 
-                data-sitekey="0x4AAAAAABCqH_kw-KZuZqVf" 
-                data-callback="onCaptchaSuccess">
-            </div>
-
-            <input type="hidden" id="captcha-response" name="cf-turnstile-response">
-
             <button type="submit">Entrar</button>
         </form>
-
         <p id="error-message" class="error-message"></p>
     </div>
-
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-    <script src="Script.original.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
