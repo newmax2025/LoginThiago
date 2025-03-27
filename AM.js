@@ -46,3 +46,4 @@ document.querySelectorAll('.carousel-container').forEach(container => {
         isDown = false;
     });
 });
+
