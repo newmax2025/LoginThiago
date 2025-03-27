@@ -1,11 +1,5 @@
 const adminUsers = {
-    "visitante09661@gmail.com": "972207",
-    "visitante095772@gmail.com": "083962",
-    "visitante028483@gmail.com": "976294",
-    "visitante063774@gmail.com": "967304",
-    "visitante938005@gmail.com": "053952",
-    "despachantefreedomlcf@gmail.com": "123456",
-    "Joaobatistarefrigeracao@gmail.com": "123456",
+    "visitante587": "102030",
     "teste": "12345"
 };
 
