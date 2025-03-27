@@ -24,7 +24,7 @@ if (empty($user) || empty($pass)) {
 }
 
 // Verifica se o usuário já existe
-$sql = "SELECT id FROM clientes WHERE usuario = ?";
+$sql = "SELECT id FROM admin WHERE usuario = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $user);
 $stmt->execute();
@@ -38,7 +38,7 @@ if ($result->num_rows > 0) {
 $hashed_password = password_hash($pass, PASSWORD_DEFAULT);
 
 // Insere no banco de dados
-$sql = "INSERT INTO clientes (usuario, senha) VALUES (?, ?)";
+$sql = "INSERT INTO admin (usuario, senha) VALUES (?, ?)";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("ss", $user, $hashed_password);
 
